@@ -25,6 +25,7 @@ const body = Manrope({
  *  "left"  = framed photo on the left, text on the right
  *  "right" = framed photo on the right, text on the left
  *  "circle" = round photo with a gold ring on a maroon band (a highlight moment)
+ *  "video"  = framed portrait video clip with a poster frame, text beside it
  * ratio: shape of the frame for split layouts, e.g. "4 / 5" (portrait) or "1 / 1" (square)
  * pos:   which part of the photo stays in view when cropped, e.g. "center 25%" keeps faces
  * small: caps the frame width, so low-resolution photos are not blown up
@@ -34,10 +35,12 @@ type Photo = {
   alt: string;
   title: string;
   caption: string;
-  layout: "full" | "left" | "right" | "circle";
+  layout: "full" | "left" | "right" | "circle" | "video";
   ratio?: string;
   pos?: string;
   small?: boolean;
+  /** only for layout "video": the actual clip; src/alt above are used for the poster frame */
+  video?: string;
 };
 
 const PHOTOS: Photo[] = [
@@ -72,6 +75,26 @@ const PHOTOS: Photo[] = [
     title: "Our school family",
     caption: "Pupils and their teacher, gathered for a class photo.",
     layout: "circle",
+  },
+  {
+    src: "/images/gallery/playground-slide-poster.jpg",
+    alt: "A pupil sliding down a colourful slide at a park",
+    title: "Slide time",
+    caption: "One brave run down the big slide on an outing to the park.",
+    layout: "video",
+    video: "/videos/playground-slide.mp4",
+    ratio: "9 / 16",
+    small: true,
+  },
+  {
+    src: "/images/gallery/mini-train-ride-poster.jpg",
+    alt: "Pupils riding a small train at a park",
+    title: "All aboard",
+    caption: "A ride on the mini train, part of the same day out.",
+    layout: "video",
+    video: "/videos/mini-train-ride.mp4",
+    ratio: "9 / 16",
+    small: true,
   },
   {
     src: "/images/gallery/lineup.jpg",
@@ -180,7 +203,7 @@ export default function GalleryPage() {
               Moments from a year at our school
             </h1>
             <p className="mt-4 max-w-md text-sm text-white/80 sm:text-base">
-              Eight scenes from the classroom, the playground and the gate
+              Ten scenes from the classroom, the playground and the gate
               &mdash; tap any photo to look closer.
             </p>
           </div>
@@ -276,6 +299,55 @@ export default function GalleryPage() {
                       >
                         View larger
                       </button>
+                    </div>
+                  </div>
+                </section>
+              );
+            }
+
+            /* ---------- Video clip: framed portrait video + text ---------- */
+            if (photo.layout === "video" && photo.video) {
+              const videoOnRight = realIndex % 2 === 0;
+              return (
+                <section
+                  key={photo.src}
+                  className="px-6 py-14 sm:px-10 md:py-20 lg:px-16"
+                  style={{ background: realIndex % 2 ? "#f4ead9" : "#fbf5ec" }}
+                >
+                  <div className="mx-auto grid max-w-6xl items-center gap-10 md:grid-cols-2 md:gap-16">
+                    <div
+                      className={`mx-auto w-full max-w-[16rem] ${videoOnRight ? "md:order-2" : ""}`}
+                    >
+                      <div
+                        className="relative w-full overflow-hidden"
+                        style={{ aspectRatio: photo.ratio ?? "9 / 16", boxShadow: "14px 14px 0 #e8b23d" }}
+                      >
+                        <video
+                          src={photo.video}
+                          poster={photo.src}
+                          controls
+                          playsInline
+                          preload="metadata"
+                          className="absolute inset-0 h-full w-full object-cover"
+                        >
+                          <track kind="captions" />
+                        </video>
+                      </div>
+                    </div>
+
+                    <div className={videoOnRight ? "md:order-1" : ""}>
+                      <p className="mb-3 text-sm font-semibold tracking-wide" style={{ color: "#6e0000" }}>
+                        {counter}
+                      </p>
+                      <h2
+                        className="text-4xl italic leading-[1.05] sm:text-5xl"
+                        style={{ fontFamily: "var(--font-display)", color: "#2a0d0d" }}
+                      >
+                        {photo.title}
+                      </h2>
+                      <p className="mt-5 max-w-md text-lg leading-8" style={{ color: "#4a3636" }}>
+                        {photo.caption}
+                      </p>
                     </div>
                   </div>
                 </section>
