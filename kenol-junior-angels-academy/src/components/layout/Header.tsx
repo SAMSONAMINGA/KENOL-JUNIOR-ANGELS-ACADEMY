@@ -24,6 +24,11 @@ export default function Header() {
       <div className="bg-[#6e0000] text-white text-sm">
         <div className="max-w-7xl mx-auto px-4 py-1.5 flex flex-wrap justify-between items-center gap-2">
           <span>P.O. Box 340 – 01020, Kenol</span>
+          <a href="mailto:info@kenoljuniorangelsacademy.com" className="hover:underline font-medium">
+            Email: info@kenoljuniorangelsacademy.com
+          </a>
+          <span className="hidden sm:inline">MOTTO :STRIVE TO EXCEL, SKY IS THE LIMIT</span>
+            
           <a href="tel:0723248400" className="hover:underline font-medium">
             Tel: 0723 248 400
           </a>
