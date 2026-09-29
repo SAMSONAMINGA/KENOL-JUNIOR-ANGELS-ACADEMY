@@ -55,7 +55,7 @@ const EVENTS: EventItem[] = [
     title: "Pedals in motion",
     desc: "Our cycling programme: learners gather at the gate with their bicycles as part of co-curricular activity time.",
     photo: {
-      src: "/images/news/pedals-in-motion.jpg",
+      src: "/images/hero/photo_5_cycling.jpg",
       alt: "Pupils with their bicycles lined up at the school gate",
     },
     status: "ongoing",

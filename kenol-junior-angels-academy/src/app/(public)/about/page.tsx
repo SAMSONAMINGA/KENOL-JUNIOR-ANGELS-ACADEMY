@@ -45,13 +45,13 @@ const beyondClassroom = [
     title: "Sports & dance",
     description:
       "Regular sports and dance sessions keep learners active and give every child, not just the naturally athletic ones, a way to shine.",
-    image: "/images/hero/photo_8_activirties.jpg",
+    image: "/images/hero/photo_8_activities.jpg",
   },
   {
     title: "Faith & community",
     description:
       "The school marks the term with services of thanksgiving alongside the local church community, rooting school life in the wider Kenol community.",
-    image: "/images/hero/photo_6_ faith.jpg",
+    image: "/images/hero/photo_6_faith.jpg",
   },
 ];
 

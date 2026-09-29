@@ -10,7 +10,6 @@ export default function HomePage() {
 
       <main>
         {/* ========== HERO SECTION ========== */}
-        {/* ========== HERO SECTION ========== */}
         <section className="relative overflow-hidden text-white">
           <div
             className="absolute inset-0 bg-cover bg-center"
@@ -20,11 +19,8 @@ export default function HomePage() {
           />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(110,0,0,0.62),_rgba(20,0,0,0.82))]" />
 
-          {/* CHANGED: wider container (max-w-[1600px]) and smaller side padding so the badge can sit at the far left */}
           <div className="relative z-10 mx-auto max-w-[1600px] px-4 py-20 md:px-8 md:py-28 lg:px-10">
-            {/* CHANGED: gap-12 gives the badge and text some breathing room */}
             <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-start lg:gap-12">
-              {/* CHANGED: removed lg:-ml-16 and shrank the badge slightly so the text column gets more room */}
               <div className="w-36 flex-shrink-0 sm:w-44 md:w-52 lg:w-[24rem] xl:w-[26rem]">
                 <Image
                   src="/badge.svg"
@@ -36,7 +32,6 @@ export default function HomePage() {
                 />
               </div>
 
-              {/* CHANGED: was max-w-2xl lg:max-w-[46rem], which forced "ANGELS" onto line 2. Now it takes all remaining width. */}
               <div className="min-w-0 flex-1">
                 <span className="mt-6 block max-w-xl text-lg uppercase tracking-[0.08em] text-white/90 md:text-xl">
                   GIVE YOUR CHILD THE BEST START IN LIFE
@@ -49,7 +44,6 @@ export default function HomePage() {
                   Welcome to
                 </div>
 
-                {/* CHANGED: fixed "JUINOR" typo, split into two lines, scaled font with clamp() so it never overflows */}
                 <h1 className="text-[clamp(2rem,4.6vw,5.1rem)] font-bold leading-[0.95] tracking-[-0.04em]">
                   <span className="block lg:whitespace-nowrap">KENOL JUNIOR ANGELS</span>
                   <span className="block">ACADEMY</span>
@@ -96,14 +90,12 @@ export default function HomePage() {
                 {
                   title: "CBC-Compliant Teaching",
                   desc: "Fully aligned with the Competency-Based Curriculum for PP1 to Grade 8.",
-                  image:
-                    "/images/hero/photo_9_cbc.jpg",
+                  image: "/images/hero/photo_9_cbc.jpg",
                 },
                 {
                   title: "Strong Literacy & Numeracy",
                   desc: "Solid foundation in reading, writing and mathematics from the early years.",
-                  image:
-                    "/images/hero/photo_3_writing.png",
+                  image: "/images/hero/photo_3_writing.png",
                 },
                 {
                   title: "Experienced, Caring Teachers",
@@ -114,20 +106,17 @@ export default function HomePage() {
                 {
                   title: "Safe & Supportive Environment",
                   desc: "A secure campus where learners feel valued, protected and encouraged.",
-                  image:
-                    "/images/hero/photo_2_lineup.png",
+                  image: "/images/hero/photo_2_lineup.png",
                 },
                 {
                   title: "Affordable School Fees",
                   desc: "Quality education that remains accessible to families in Kenol and beyond.",
-                  image:
-                    "/images/hero/photo_4_playground.png",
+                  image: "/images/hero/photo_4_playground.png",
                 },
                 {
                   title: "Co-Curricular Activities",
                   desc: "Music, sports, clubs and talent development beyond the classroom.",
-                  image:
-                    "/images/hero/photo_5_cycling.jpg"
+                  image: "/images/hero/photo_5_cycling.jpg",
                 },
               ].map((item) => (
                 <div
@@ -173,14 +162,19 @@ export default function HomePage() {
                 { level: "Grade 4–6", name: "Upper Primary", ages: "Ages 9–11" },
                 { level: "Grade 7–8", name: "Junior Secondary", ages: "Ages 12–13" },
               ].map((item) => (
-                <div
+                <Link
                   key={item.level}
-                  className="rounded-2xl bg-gradient-to-br from-[#6e0000] to-[#4d0000] text-white p-6 hover:scale-[1.02] transition"
+                  href="/admissions"
+                  aria-label={`Apply for ${item.name}, ${item.level}`}
+                  className="group block rounded-2xl bg-gradient-to-br from-[#6e0000] to-[#4d0000] p-6 text-white transition hover:scale-[1.02] hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
                 >
-                  <p className="text-sm font-medium text-white/70 mb-1">{item.ages}</p>
-                  <h3 className="text-xl font-bold mb-1">{item.name}</h3>
+                  <p className="mb-1 text-sm font-medium text-white/70">{item.ages}</p>
+                  <h3 className="mb-1 text-xl font-bold">{item.name}</h3>
                   <p className="text-2xl font-bold opacity-90">{item.level}</p>
-                </div>
+                  <span className="mt-3 inline-block text-sm font-semibold text-white/80 transition group-hover:translate-x-1">
+                    Apply →
+                  </span>
+                </Link>
               ))}
             </div>
 

@@ -23,3 +23,34 @@ body {
 h1, h2, h3, .font-serif {
   font-family: var(--font-serif), Georgia, serif;
 }
+
+/* ===== Breathing active-page indicator ===== */
+
+/* Desktop underline: pulses horizontally */
+@keyframes nav-breathe {
+  0%, 100% { opacity: 0.45; transform: scaleX(0.7); box-shadow: 0 0 0 rgba(110, 0, 0, 0); }
+  50%      { opacity: 1;    transform: scaleX(1);   box-shadow: 0 0 10px rgba(110, 0, 0, 0.55); }
+}
+
+/* Mobile left bar: pulses vertically */
+@keyframes nav-breathe-y {
+  0%, 100% { opacity: 0.45; transform: scaleY(0.7); box-shadow: 0 0 0 rgba(110, 0, 0, 0); }
+  50%      { opacity: 1;    transform: scaleY(1);   box-shadow: 0 0 10px rgba(110, 0, 0, 0.55); }
+}
+
+.nav-breathe {
+  animation: nav-breathe 2.4s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.nav-breathe-y {
+  animation: nav-breathe-y 2.4s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-breathe,
+  .nav-breathe-y {
+    animation: none;
+  }
+}

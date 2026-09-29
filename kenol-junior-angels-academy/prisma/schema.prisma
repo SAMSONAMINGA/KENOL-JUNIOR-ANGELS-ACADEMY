@@ -1,0 +1,88 @@
+// Postgres on Neon (free tier), which works with Vercel's serverless hosting.
+//   DATABASE_URL = the "pooled" connection string (used by the running site)
+//   DIRECT_URL   = the "direct" connection string (used by `prisma db push`)
+// Both come from the Neon dashboard.
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model StaffUser {
+  id             String    @id @default(cuid())
+  phone          String    @unique
+  name           String
+  passwordHash   String
+  role           String    @default("STAFF") // "OWNER" or "STAFF"
+  active         Boolean   @default(true)
+  failedAttempts Int       @default(0)
+  lockedUntil    DateTime?
+  tokenVersion   Int       @default(0)
+  createdAt      DateTime  @default(now())
+
+  notes Note[]
+}
+
+model Application {
+  id          String   @id @default(cuid())
+  reference   String   @unique // e.g. KJAC-2026-0043
+  accessToken String   @default(uuid()) // random secret for the confirmation link
+
+  // Child
+  childName      String
+  dateOfBirth    DateTime
+  gender         String
+  level          String  // PP1, PP2, GRADE1 ... GRADE8 (see lib/levels.ts)
+  previousSchool String?
+
+  // Parent / guardian
+  parentName   String
+  relationship String
+  phone        String
+  altPhone     String?
+  area         String
+
+  // Other parent / guardian (optional)
+  otherParentName   String?
+  otherRelationship String?
+  otherPhone        String?
+
+  consentAt DateTime?
+  status    String    @default("PENDING") // see lib/status.ts
+  notes     Note[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@index([status])
+  @@index([createdAt])
+  @@index([level])
+}
+
+model Note {
+  id            String      @id @default(cuid())
+  body          String
+  application   Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  applicationId String
+  author        StaffUser   @relation(fields: [authorId], references: [id])
+  authorId      String
+  createdAt     DateTime    @default(now())
+}
+
+// Guarantees reference numbers never collide, even for simultaneous submissions.
+model ReferenceCounter {
+  year String @id // "2026"
+  last Int    @default(0)
+}
+
+// Backs the anti-spam rate limiter (lib/antispam.ts). Works on serverless
+// because it's in the database, not in memory.
+model RateLimit {
+  key     String   @id
+  count   Int      @default(1)
+  resetAt DateTime
+}
