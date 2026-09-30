@@ -1,9 +1,49 @@
+"use client";
+
+import { useState } from "react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Image from "next/image";
 import Link from "next/link";
+import ImageLightbox from "@/components/ui/ImageLightbox";
 
 export default function HomePage() {
+  const [lightbox, setLightbox] = useState<{ src: string; alt: string } | null>(null);
+
+  const whyChooseUs = [
+    {
+      title: "CBC-Compliant Teaching",
+      desc: "Fully aligned with the Competency-Based Curriculum for PP1 to Grade 8.",
+      image: "/images/hero/photo_9_cbc.jpg",
+    },
+    {
+      title: "Strong Literacy & Numeracy",
+      desc: "Solid foundation in reading, writing and mathematics from the early years.",
+      image: "/images/hero/photo_3_writing.png",
+    },
+    {
+      title: "Experienced, Caring Teachers",
+      desc: "Dedicated teachers who know every child by name and nurture their growth.",
+      image:
+        "/images/hero/photo_14_caringteachers.jpg",
+    },
+    {
+      title: "Safe & Supportive Environment",
+      desc: "A secure campus where learners feel valued, protected and encouraged.",
+      image: "/images/hero/photo_2_lineup.png",
+    },
+    {
+      title: "Affordable School Fees",
+      desc: "Quality education that remains accessible to families in Kenol and beyond.",
+      image: "/images/hero/photo_4_playground.png",
+    },
+    {
+      title: "Co-Curricular Activities",
+      desc: "Music, sports, clubs and talent development beyond the classroom.",
+      image: "/images/hero/photo_5_cycling.jpg",
+    },
+  ];
+
   return (
     <>
       <Header />
@@ -56,7 +96,7 @@ export default function HomePage() {
                 <div className="mt-8 flex flex-wrap gap-4 pt-2">
                   <Link
                     href="/admissions"
-                    className="rounded-full bg-white px-8 py-3.5 font-bold text-[#6e0000] shadow-lg transition hover:bg-gray-100"
+                    className="rounded-full bg-white px-8 py-3.5 font-bold text-[#6e0000] shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-[0_0_25px_rgba(255,255,255,0.6)]"
                   >
                     Enroll Now
                   </Link>
@@ -86,50 +126,28 @@ export default function HomePage() {
             </div>
 
             <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6 max-w-6xl mx-auto">
-              {[
-                {
-                  title: "CBC-Compliant Teaching",
-                  desc: "Fully aligned with the Competency-Based Curriculum for PP1 to Grade 8.",
-                  image: "/images/hero/photo_9_cbc.jpg",
-                },
-                {
-                  title: "Strong Literacy & Numeracy",
-                  desc: "Solid foundation in reading, writing and mathematics from the early years.",
-                  image: "/images/hero/photo_3_writing.png",
-                },
-                {
-                  title: "Experienced, Caring Teachers",
-                  desc: "Dedicated teachers who know every child by name and nurture their growth.",
-                  image:
-                    "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=900&q=80",
-                },
-                {
-                  title: "Safe & Supportive Environment",
-                  desc: "A secure campus where learners feel valued, protected and encouraged.",
-                  image: "/images/hero/photo_2_lineup.png",
-                },
-                {
-                  title: "Affordable School Fees",
-                  desc: "Quality education that remains accessible to families in Kenol and beyond.",
-                  image: "/images/hero/photo_4_playground.png",
-                },
-                {
-                  title: "Co-Curricular Activities",
-                  desc: "Music, sports, clubs and talent development beyond the classroom.",
-                  image: "/images/hero/photo_5_cycling.jpg",
-                },
-              ].map((item) => (
+              {whyChooseUs.map((item) => (
                 <div
                   key={item.title}
                   className="bg-white/80 rounded-[22px] p-3 shadow-[0_2px_10px_rgba(0,0,0,0.04)] border border-[#e7e0da] hover:shadow-[0_10px_25px_rgba(110,0,0,0.09)] transition overflow-hidden"
                 >
-                  <div className="relative h-52 w-full overflow-hidden rounded-[18px] mb-4 border border-[#e7e0da] bg-[#f3efe9]">
+                  {/* Clickable image */}
+                  <button
+                    type="button"
+                    onClick={() => setLightbox({ src: item.image, alt: item.title })}
+                    className="relative h-52 w-full overflow-hidden rounded-[18px] mb-4 border border-[#e7e0da] bg-[#f3efe9] cursor-zoom-in group"
+                  >
                     <img
                       src={item.image}
                       alt={item.title}
-                      className="h-full w-full object-cover"
+                      className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
                     />
-                  </div>
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition group-hover:bg-black/25">
+                      <span className="rounded-full bg-black/60 px-3 py-1 text-sm font-medium text-white opacity-0 transition group-hover:opacity-100">
+                        View larger
+                      </span>
+                    </div>
+                  </button>
 
                   <h3 className="text-2xl md:text-[2rem] font-black text-[#1d1d1d] leading-tight mb-3">
                     {item.title}
@@ -157,22 +175,22 @@ export default function HomePage() {
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {[
-                { level: "PP1 & PP2", name: "Pre-Primary", ages: "Ages 4–5" },
-                { level: "Grade 1–3", name: "Lower Primary", ages: "Ages 6–8" },
-                { level: "Grade 4–6", name: "Upper Primary", ages: "Ages 9–11" },
-                { level: "Grade 7–8", name: "Junior Secondary", ages: "Ages 12–13" },
+                { level: "PP1 & PP2", name: "Pre-Primary", ages: "Ages 4–5", slug: "pre-primary" },
+                { level: "Grade 1–3", name: "Lower Primary", ages: "Ages 6–8", slug: "lower-primary" },
+                { level: "Grade 4–6", name: "Upper Primary", ages: "Ages 9–11", slug: "upper-primary" },
+                { level: "Grade 7–8", name: "Junior Secondary", ages: "Ages 12–13", slug: "junior-secondary" },
               ].map((item) => (
                 <Link
                   key={item.level}
-                  href="/admissions"
-                  aria-label={`Apply for ${item.name}, ${item.level}`}
+                  href={`/levels/${item.slug}`}
+                  aria-label={`Learn about ${item.name}, ${item.level}`}
                   className="group block rounded-2xl bg-gradient-to-br from-[#6e0000] to-[#4d0000] p-6 text-white transition hover:scale-[1.02] hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
                 >
                   <p className="mb-1 text-sm font-medium text-white/70">{item.ages}</p>
                   <h3 className="mb-1 text-xl font-bold">{item.name}</h3>
                   <p className="text-2xl font-bold opacity-90">{item.level}</p>
                   <span className="mt-3 inline-block text-sm font-semibold text-white/80 transition group-hover:translate-x-1">
-                    Apply →
+                    Learn More →
                   </span>
                 </Link>
               ))}
@@ -202,7 +220,7 @@ export default function HomePage() {
             <div className="flex flex-wrap justify-center gap-4 pt-2">
               <Link
                 href="/admissions"
-                className="px-8 py-3.5 bg-[#6e0000] text-white font-bold rounded-full hover:bg-[#8b0000] transition"
+                className="px-8 py-3.5 bg-[#6e0000] text-white font-bold rounded-full transition-all duration-300 hover:scale-110 hover:shadow-[0_0_20px_rgba(110,0,0,0.6)]"
               >
                 Register Now
               </Link>
@@ -240,6 +258,15 @@ export default function HomePage() {
       </main>
 
       <Footer />
+
+      {/* Lightbox */}
+      {lightbox && (
+        <ImageLightbox
+          src={lightbox.src}
+          alt={lightbox.alt}
+          onClose={() => setLightbox(null)}
+        />
+      )}
     </>
   );
 }

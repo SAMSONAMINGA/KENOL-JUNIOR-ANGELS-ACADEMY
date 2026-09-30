@@ -11,18 +11,17 @@ import nodemailer from "nodemailer";
  *       GMAIL_APP_PASSWORD=the-16-letter-app-password
  *       ADMISSIONS_NOTIFY_TO=kjuniorangels1@gmail.com
  *
- * If those are missing, or Gmail fails, this logs the problem and returns
- * quietly. The application is already saved before this runs, so a parent's
- * submission is never lost because of an email issue.
+ * Returns true if sent, false if not. Never throws; the application is already
+ * saved before this runs. The caller uses the result to flag the application.
  */
-export async function emailSchool(subject: string, text: string): Promise<void> {
+export async function emailSchool(subject: string, text: string): Promise<boolean> {
   const user = process.env.GMAIL_USER;
   const pass = process.env.GMAIL_APP_PASSWORD;
   const to = process.env.ADMISSIONS_NOTIFY_TO ?? user;
 
   if (!user || !pass || !to) {
     console.warn("[mailer] Email not configured, skipping notification.");
-    return;
+    return false;
   }
 
   try {
@@ -31,7 +30,9 @@ export async function emailSchool(subject: string, text: string): Promise<void> 
       auth: { user, pass },
     });
     await transporter.sendMail({ from: `"KJAC Website" <${user}>`, to, subject, text });
+    return true;
   } catch (err) {
     console.error("[mailer] Failed to send admissions email:", err);
+    return false;
   }
 }

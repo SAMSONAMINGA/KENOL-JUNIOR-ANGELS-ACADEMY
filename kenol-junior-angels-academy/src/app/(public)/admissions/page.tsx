@@ -33,21 +33,25 @@ export default function AdmissionsPage() {
                 {
                   title: "Pre-Primary",
                   grades: "PP1 & PP2",
+                  slug: "pre-primary",
                   desc: "Play-based learning, early literacy and numeracy in a warm, nurturing environment.",
                 },
                 {
                   title: "Lower Primary",
                   grades: "Grade 1–3",
+                  slug: "lower-primary",
                   desc: "Strong foundation in reading, writing and mathematics through practical lessons.",
                 },
                 {
                   title: "Upper Primary",
                   grades: "Grade 4–6",
+                  slug: "upper-primary",
                   desc: "Deeper subject understanding, critical thinking and practical life skills.",
                 },
                 {
                   title: "Junior Secondary",
                   grades: "Grade 7–8",
+                  slug: "junior-secondary",
                   desc: "Preparation for senior school, leadership and independent study habits.",
                 },
               ].map((level) => (
@@ -65,10 +69,10 @@ export default function AdmissionsPage() {
                     {level.desc}
                   </p>
                   <Link
-                    href="/admissions/apply"
+                    href={`/levels/${level.slug}`}
                     className="inline-block text-sm font-semibold text-[#6e0000] hover:underline"
                   >
-                    Apply for this level →
+                    View this level →
                   </Link>
                 </div>
               ))}

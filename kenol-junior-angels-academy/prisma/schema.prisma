@@ -32,6 +32,7 @@ model Application {
   id          String   @id @default(cuid())
   reference   String   @unique // e.g. KJAC-2026-0043
   accessToken String   @default(uuid()) // random secret for the confirmation link
+  notifyFailed Boolean @default(false)
 
   // Child
   childName      String

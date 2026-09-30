@@ -26,4 +26,6 @@ export const DOCUMENTS_TO_BRING = [
   "Previous school report (if any)",
   "2 passport photos",
   "Parent/guardian ID",
+  "Child medical report",
+  "Disability notice (if any)",
 ];

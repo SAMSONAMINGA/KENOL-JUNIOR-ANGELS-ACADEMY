@@ -1,5 +1,9 @@
+"use client";
+
+import { useState } from "react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import ImageLightbox from "@/components/ui/ImageLightbox";
 
 const values = [
   {
@@ -56,6 +60,8 @@ const beyondClassroom = [
 ];
 
 export default function AboutPage() {
+  const [lightbox, setLightbox] = useState<{ src: string; alt: string } | null>(null);
+
   return (
     <>
       <Header />
@@ -69,14 +75,18 @@ export default function AboutPage() {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(19,10,7,0.25),_rgba(19,10,7,0.82))]" />
 
           <div className="relative z-10 max-w-7xl mx-auto px-4 py-16 md:py-20">
-            <p className="text-sm uppercase tracking-[0.18em] text-[#edc98d]">Kenol, Murang&apos;a County • Kenya</p>
+            <p className="text-sm uppercase tracking-[0.18em] text-[#edc98d]">
+              Kenol, Murang&apos;a County • Kenya
+            </p>
 
             <h1 className="mt-5 max-w-4xl text-5xl md:text-6xl lg:text-7xl font-black leading-[0.95] text-[#f3e8db]">
               Where every child&apos;s sky is the limit.
             </h1>
 
             <p className="mt-8 max-w-4xl text-xl md:text-2xl text-[#f3e8db]/90 leading-relaxed">
-              Junior Angels Academy is a CBC-aligned school in Kenol, Murang&apos;a — a place built on the belief that every child is a flower in the garden of life, each one special, each one to be loved.
+              Junior Angels Academy is a CBC-aligned school in Kenol, Murang&apos;a — a place
+              built on the belief that every child is a flower in the garden of life, each one
+              special, each one to be loved.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-4 text-lg text-[#f7efe8]">
@@ -116,14 +126,19 @@ export default function AboutPage() {
           <div className="mt-10 max-w-5xl mx-auto">
             <p className="text-[#edc98d] text-xl md:text-2xl font-semibold mb-5">Our story</p>
             <h2 className="text-4xl md:text-5xl font-black text-[#f7efe8] leading-tight">
-              A  school with a clear purpose.
+              A school with a clear purpose.
             </h2>
             <div className="mt-6 space-y-5 text-lg md:text-xl text-[#f3e8db]/90 leading-relaxed">
               <p>
-                Junior Angels Academy sits in Kenol, Murang&apos;a, just off Catholic Road — a close-knit school where teachers know each learner by name. Our team carries out what we see as a noble task: educating the young citizens who will shape this community&apos;s future, one term at a time.
+                Junior Angels Academy sits in Kenol, Murang&apos;a, just off Catholic Road — a
+                close-knit school where teachers know each learner by name. Our team carries out
+                what we see as a noble task: educating the young citizens who will shape this
+                community&apos;s future, one term at a time.
               </p>
               <p>
-                We follow Kenya&apos;s Competency-Based Curriculum from Pre-Primary through Grade 8, pairing academic rigour with the kind of warmth and attention a small school can offer that a large one can&apos;t.
+                We follow Kenya&apos;s Competency-Based Curriculum from Pre-Primary through Grade
+                8, pairing academic rigour with the kind of warmth and attention a small school can
+                offer that a large one can&apos;t.
               </p>
             </div>
           </div>
@@ -184,13 +199,17 @@ export default function AboutPage() {
 
             <div className="relative z-10 max-w-4xl mx-auto text-center">
               <p className="text-4xl md:text-5xl font-serif italic leading-[1.2] text-[#f7efe8]">
-                “Each one is special. Each one is beautiful. Each one is unique. Each one is to be loved.”
+                “Each one is special. Each one is beautiful. Each one is unique. Each one is to be
+                loved.”
               </p>
-              <p className="mt-6 text-lg text-[#f4d9b2]">— the belief every Junior Angels teacher starts the day with</p>
+              <p className="mt-6 text-lg text-[#f4d9b2]">
+                — the belief every Junior Angels teacher starts the day with
+              </p>
             </div>
           </div>
         </section>
 
+        {/* ========== School life section (clickable) ========== */}
         <section className="border-t border-[#b39370]/30 bg-[#1d120d]">
           <div className="max-w-7xl mx-auto px-4 py-16 md:py-20">
             <p className="text-[#edc98d] text-xl md:text-2xl font-semibold">Beyond the classroom</p>
@@ -200,12 +219,14 @@ export default function AboutPage() {
 
             <div className="mt-10 space-y-5">
               {beyondClassroom.map((item) => (
-                <div
+                <button
                   key={item.title}
-                  className="relative min-h-[190px] overflow-hidden rounded-[18px] border border-[#b39370]/30 bg-[#2b1d18]"
+                  type="button"
+                  onClick={() => setLightbox({ src: item.image, alt: item.title })}
+                  className="relative min-h-[190px] w-full overflow-hidden rounded-[18px] border border-[#b39370]/30 bg-[#2b1d18] text-left cursor-zoom-in group"
                 >
                   <div
-                    className="absolute inset-0 bg-cover bg-right-center opacity-80"
+                    className="absolute inset-0 bg-cover bg-right-center opacity-80 transition duration-500 group-hover:scale-105"
                     style={{ backgroundImage: `url('${item.image}')` }}
                   />
                   <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(38,25,21,0.98)_0%,rgba(38,25,21,0.94)_28%,rgba(38,25,21,0.7)_50%,rgba(38,25,21,0.18)_78%,rgba(38,25,21,0.05)_100%)]" />
@@ -218,7 +239,7 @@ export default function AboutPage() {
                       {item.description}
                     </p>
                   </div>
-                </div>
+                </button>
               ))}
             </div>
           </div>
@@ -233,7 +254,8 @@ export default function AboutPage() {
 
             <div className="mt-10 max-w-3xl space-y-6 text-xl text-[#f3e8db]/90">
               <p>
-                The best way to know if Junior Angels is right for your child is to visit. Call, message, or stop by our gate off Catholic Road, Kenol.
+                The best way to know if Junior Angels is right for your child is to visit. Call,
+                message, or stop by our gate off Catholic Road, Kenol.
               </p>
 
               <div className="space-y-4 text-xl">
@@ -247,7 +269,9 @@ export default function AboutPage() {
                 </p>
                 <p className="flex items-center gap-3">
                   <span className="text-[#7ac7c4] text-2xl">📍</span>
-                  <span className="font-bold text-[#f7efe8]">Kenol, Murang&apos;a — off Catholic Road</span>
+                  <span className="font-bold text-[#f7efe8]">
+                    Kenol, Murang&apos;a — off Catholic Road
+                  </span>
                 </p>
                 <p className="flex items-center gap-3">
                   <span className="text-[#7ac7c4] text-2xl">@</span>
@@ -260,6 +284,15 @@ export default function AboutPage() {
       </main>
 
       <Footer />
+
+      {/* Lightbox */}
+      {lightbox && (
+        <ImageLightbox
+          src={lightbox.src}
+          alt={lightbox.alt}
+          onClose={() => setLightbox(null)}
+        />
+      )}
     </>
   );
 }
