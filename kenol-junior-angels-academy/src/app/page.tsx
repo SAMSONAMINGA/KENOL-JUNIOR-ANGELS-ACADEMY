@@ -137,6 +137,7 @@ export default function HomePage() {
                     onClick={() => setLightbox({ src: item.image, alt: item.title })}
                     className="relative h-52 w-full overflow-hidden rounded-[18px] mb-4 border border-[#e7e0da] bg-[#f3efe9] cursor-zoom-in group"
                   >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={item.image}
                       alt={item.title}

@@ -55,6 +55,7 @@ export default function ImageLightbox({ src, alt, onClose }: Props) {
         className="relative max-h-[90vh] max-w-[95vw]"
         onClick={(e) => e.stopPropagation()}
       >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={src}
           alt={alt}

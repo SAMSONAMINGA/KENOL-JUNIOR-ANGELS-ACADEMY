@@ -3,37 +3,46 @@ import Link from "next/link";
 import { Fraunces, Manrope } from "next/font/google";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import AvailabilityList from "@/components/AvailabilityList";
+import type { LevelCode } from "@/lib/levels";
 
 const display = Fraunces({ subsets: ["latin"], weight: ["500", "600"], style: ["normal", "italic"], variable: "--font-display" });
 const body = Manrope({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-body" });
+
+// Places available come from the database; check again at most once a minute.
+export const revalidate = 60;
 
 const displayFont = { fontFamily: "var(--font-display)" } as const;
 const focus =
   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e8b23d] focus-visible:ring-offset-2";
 
-const LEVELS = [
+const LEVELS: { title: string; grades: string; slug: string; desc: string; codes: LevelCode[] }[] = [
   {
     title: "Pre-Primary",
     grades: "PP1 & PP2",
     slug: "pre-primary",
+    codes: ["PP1", "PP2"],
     desc: "Play-based learning, early literacy and numeracy in a warm, nurturing environment.",
   },
   {
     title: "Lower Primary",
     grades: "Grade 1–3",
     slug: "lower-primary",
+    codes: ["GRADE1", "GRADE2", "GRADE3"],
     desc: "Strong foundation in reading, writing and mathematics through practical lessons.",
   },
   {
     title: "Upper Primary",
     grades: "Grade 4–6",
     slug: "upper-primary",
+    codes: ["GRADE4", "GRADE5", "GRADE6"],
     desc: "Deeper subject understanding, critical thinking and practical life skills.",
   },
   {
     title: "Junior Secondary",
     grades: "Grade 7–8",
     slug: "junior-secondary",
+    codes: ["GRADE7", "GRADE8"],
     desc: "Preparation for senior school, leadership and independent study habits.",
   },
 ];
@@ -82,7 +91,10 @@ export default function AdmissionsPage() {
                   </div>
                   <div className="flex flex-1 flex-col p-6">
                     <h3 className="mb-2 text-xl font-bold text-[#2a0d0d]">{level.title}</h3>
-                    <p className="mb-6 text-[0.95rem] leading-6 text-[#4a3636]">{level.desc}</p>
+                    <p className="mb-5 text-[0.95rem] leading-6 text-[#4a3636]">{level.desc}</p>
+                    <div className="mb-6 border-t border-[#eadfce] pt-4">
+                      <AvailabilityList codes={level.codes} />
+                    </div>
                     <span className="mt-auto text-sm font-bold text-[#6e0000] underline-offset-4 group-hover:underline">
                       View this level →
                     </span>

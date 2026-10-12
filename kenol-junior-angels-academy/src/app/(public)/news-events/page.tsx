@@ -2,6 +2,8 @@ import Image from "next/image";
 import { Fraunces, Manrope } from "next/font/google";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import Link from "next/link";
+import { db } from "@/lib/db";
 
 const display = Fraunces({
   subsets: ["latin"],
@@ -111,7 +113,14 @@ function StatusBadge({ status }: { status: EventItem["status"] }) {
   );
 }
 
-export default function NewsPage() {
+export const dynamic = "force-dynamic";
+
+export default async function NewsPage() {
+  const posts = await db.newsPost.findMany({
+    where: { published: true },
+    orderBy: [{ publishedAt: "desc" }, { eventDate: "desc" }],
+  });
+
   return (
     <>
       <Header />
@@ -147,10 +156,42 @@ export default function NewsPage() {
           </div>
         </section>
 
+        {posts.length > 0 && (
+          <section className="px-6 py-12 sm:px-10 lg:px-16" style={{ background: "#f4ead9" }}>
+            <div className="mx-auto max-w-5xl">
+              <h2 className="mb-6 text-3xl font-bold" style={{ color: "#6e0000" }}>Latest from our school</h2>
+              <div className="grid gap-6 md:grid-cols-2">
+                {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
+                {posts.map((post, _i) => (
+                  <article key={post.id} className="overflow-hidden rounded-sm bg-white shadow-sm" style={{ border: "1px solid #e2d5c4" }}>
+                    {post.imageUrl && (
+                      <div className="relative aspect-[16/9]">
+                        <Image src={post.imageUrl} alt="" fill unoptimized sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
+                      </div>
+                    )}
+                    <div className="p-5 sm:p-6">
+                      <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "#a05a2c" }}>
+                        {post.kind === "EVENT" ? "School event" : "School news"}
+                        {post.eventDate && ` · ${post.eventDate.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "Africa/Nairobi" })}`}
+                      </p>
+                      <h3 className="mt-2 text-2xl font-bold" style={{ color: "#2a0d0d" }}>{post.title}</h3>
+                      <p className="mt-3 text-base leading-7" style={{ color: "#4a3636" }}>{post.summary}</p>
+                      <Link href={`/news-events/${post.slug}`} className="mt-4 inline-block font-bold underline decoration-2 underline-offset-4" style={{ color: "#6e0000" }}>
+                        Read more
+                      </Link>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* ========== EVENTS FEED ========== */}
         <section className="px-6 py-4 sm:px-10 lg:px-16" style={{ background: "#fbf5ec" }}>
           <div className="mx-auto max-w-4xl">
-            {EVENTS.map((ev, i) => (
+            {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
+            {EVENTS.map((ev, _i) => (
               <article
                 key={ev.title}
                 className="grid grid-cols-[4.5rem_1fr] gap-6 border-t py-10 sm:grid-cols-[6rem_1fr] sm:gap-10 md:py-12"
