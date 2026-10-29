@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Prisma } from "@prisma/client";
 import { db } from "@/lib/db";
 import { requireStaff } from "@/lib/auth";
+import AdminNav from "@/components/admin/AdminNav";
 import { logout } from "../login/actions";
 import { LEVEL_OPTIONS, levelLabel } from "@/lib/levels";
 import { STATUSES, STATUS_LABEL, STATUS_COLOR, isStatus, type StatusCode } from "@/lib/status";
@@ -66,6 +67,8 @@ export default async function AdmissionsDashboard({
             </form>
           </div>
         </div>
+
+        <AdminNav active="admissions" />
 
         <div className="mb-8 grid grid-cols-3 gap-4">
           {(["PENDING", "APPROVED", "ENROLLED"] as StatusCode[]).map((s) => (

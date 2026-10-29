@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import { requireStaff } from "@/lib/auth";
 import { levelLabel } from "@/lib/levels";
 import { STATUSES, STATUS_LABEL, STATUS_COLOR, type StatusCode } from "@/lib/status";
+import AdminNav from "@/components/admin/AdminNav";
 import { addNote, updateStatus, deleteApplication } from "./actions";
 
 export const dynamic = "force-dynamic";
@@ -50,6 +51,10 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
         <Link href="/admin/admissions" className="text-sm font-semibold underline" style={{ color: "#6e0000" }}>
           &larr; All applications
         </Link>
+
+        <div className="mt-4">
+          <AdminNav active="admissions" />
+        </div>
 
         <div className="mb-6 mt-4 flex flex-wrap items-center gap-4">
           <h1 className="text-3xl font-bold" style={{ color: "#6e0000" }}>{app.childName}</h1>

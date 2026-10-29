@@ -15,11 +15,11 @@ const playfair = Playfair_Display({
 export const metadata: Metadata = {
   title: "Kenol Junior Angels Academy | Strive To Excel, Sky is The Limit",
   description:
-    "Kenol Junior Angels Academy - A nurturing, CBC-aligned learning environment for PP1, PP2 & Grades 1-8 in Kenol Town. Strong literacy, numeracy, and character foundation.",
+    "Kenol Junior Angels Academy - A nurturing, CBE-aligned learning environment for PP1, PP2 & Grades 1-8 in Kenol Town. Strong literacy, numeracy, and character foundation.",
   keywords: [
     "Kenol Junior Angels Academy",
     "Kenol school",
-    "CBC school Kenol",
+    "CBE school Kenol",
     "Primary school Kenol",
     "PP1 PP2 Grade 1-8",
   ],

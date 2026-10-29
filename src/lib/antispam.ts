@@ -10,6 +10,38 @@ function secret(): string {
 
 const mac = (v: string) => createHmac("sha256", secret()).update(v).digest("hex");
 
+/** Signs small server-only tokens using the same secret as form tokens. */
+export function signPayload(payload: Record<string, string | number>): string {
+  const body = Buffer.from(JSON.stringify(payload)).toString("base64url");
+  return `${body}.${mac(body)}`;
+}
+
+/** Verifies a signed payload and rejects any field set other than the exact expected shape. */
+export function verifyPayload(token: string, fields: readonly string[]): Record<string, unknown> | null {
+  const parts = token.split(".");
+  if (parts.length !== 2) return null;
+  const [body, signature] = parts;
+  if (!body || !signature || !/^[0-9a-f]{64}$/.test(signature)) return null;
+
+  const expected = mac(body);
+  const suppliedBytes = Buffer.from(signature, "hex");
+  const expectedBytes = Buffer.from(expected, "hex");
+  if (suppliedBytes.length !== expectedBytes.length || !timingSafeEqual(suppliedBytes, expectedBytes)) {
+    return null;
+  }
+
+  try {
+    const payload: unknown = JSON.parse(Buffer.from(body, "base64url").toString("utf8"));
+    if (!payload || typeof payload !== "object" || Array.isArray(payload)) return null;
+    const values = payload as Record<string, unknown>;
+    const keys = Object.keys(values);
+    if (keys.length !== fields.length || fields.some((field) => !Object.hasOwn(values, field))) return null;
+    return values;
+  } catch {
+    return null;
+  }
+}
+
 /** Called on the server when the apply page renders. */
 export function makeFormToken(): string {
   const ts = String(Date.now());

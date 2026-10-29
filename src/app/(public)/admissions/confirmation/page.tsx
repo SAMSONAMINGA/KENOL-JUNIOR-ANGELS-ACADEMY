@@ -3,8 +3,10 @@ import { Fraunces, Manrope } from "next/font/google";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import PrintButton from "./PrintButton";
+import CopyReferenceButton from "./CopyReferenceButton";
 import { db } from "@/lib/db";
 import { DOCUMENTS_TO_BRING, levelLabel } from "@/lib/levels";
+import Link from "next/link";
 
 const display = Fraunces({ subsets: ["latin"], weight: ["500", "600"], style: ["normal", "italic"], variable: "--font-display" });
 const body = Manrope({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-body" });
@@ -64,6 +66,26 @@ export default async function ConfirmationPage({
               <p className="mt-1 text-4xl italic" style={{ fontFamily: "var(--font-display)" }}>{app.reference}</p>
             </div>
 
+            <section className="mt-5 rounded-xl border-2 border-[#e8b23d] bg-white p-6 shadow-sm sm:p-7">
+              <h2 className="text-2xl font-bold text-[#6e0000]">Track your application</h2>
+              <div className="mt-3 flex flex-wrap items-center gap-3">
+                <p className="break-all text-3xl font-bold tracking-wide text-[#2a0d0d] sm:text-4xl">{app.reference}</p>
+                <CopyReferenceButton reference={app.reference} />
+              </div>
+              <p className="mt-4 leading-7 text-[#4a3636]">
+                Keep this number. You need it with your phone number to check progress.
+              </p>
+              <div className="no-print mt-5 flex flex-wrap items-center gap-3">
+                <Link
+                  href="/admissions/status"
+                  className="rounded-full bg-[#6e0000] px-6 py-3 font-bold text-white hover:bg-[#8b0000]"
+                >
+                  Check my status
+                </Link>
+                <PrintButton />
+              </div>
+            </section>
+
             <p className="mt-6 text-lg leading-8" style={{ color: "#4a3636" }}>
               Please print this page and bring it with you when you visit the
               school for document verification.
@@ -104,9 +126,6 @@ export default async function ConfirmationPage({
               admission depends on document verification and space availability.
             </p>
 
-            <div className="mt-8">
-              <PrintButton />
-            </div>
           </div>
         </section>
       </main>

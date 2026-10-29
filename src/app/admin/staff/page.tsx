@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { db } from "@/lib/db";
 import { requireOwner } from "@/lib/auth";
+import AdminNav from "@/components/admin/AdminNav";
 import { createStaff, deleteStaff, resetPassword, setActive } from "./actions";
 
 export const dynamic = "force-dynamic";
@@ -20,6 +21,7 @@ export default async function StaffPage({ searchParams }: { searchParams: Promis
           &larr; Admissions
         </Link>
         <h1 className="mb-6 mt-4 text-3xl font-bold" style={{ color: "#6e0000" }}>Staff accounts</h1>
+        <AdminNav active="staff" />
 
         {sp.error && (
           <p role="alert" className="mb-6 rounded-sm px-4 py-3 font-semibold" style={{ background: "#fbe9d0", color: "#7a2e00" }}>

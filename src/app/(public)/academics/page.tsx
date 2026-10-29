@@ -13,7 +13,7 @@ type Level = {
   note?: string;
 };
 
-// Learning areas follow the national CBC framework. Check each list against
+// Learning areas follow the national CBE framework. Check each list against
 // what the school actually teaches and edit before publishing.
 const levels: Level[] = [
   {
@@ -94,7 +94,7 @@ const focus = [
     desc: "Strong reading, writing and mathematics are the base for everything else a child will learn.",
   },
   {
-    title: "CBC Competencies",
+    title: "CBE Competencies",
     desc: "Learners build communication, critical thinking, creativity, collaboration and digital skills.",
   },
   {
@@ -172,7 +172,7 @@ export default function AcademicsPage() {
                 <div className="max-w-prose space-y-6 text-lg leading-8 text-gray-800">
                   <p>
                     At Kenol Junior Angels Academy we fully implement the{" "}
-                    <strong>Competency-Based Curriculum (CBC)</strong>. Lessons
+                    <strong>Competency-Based Curriculum (CBE)</strong>. Lessons
                     develop knowledge, skills and values that prepare every
                     learner for life beyond the classroom.
                   </p>
@@ -196,7 +196,7 @@ export default function AcademicsPage() {
                 </h3>
                 <ul className="space-y-4">
                   {[
-                    "Fully CBC-compliant teaching",
+                    "Fully CBE-compliant teaching",
                     "Strong focus on reading, writing & mathematics",
                     "Personalized learner attention",
                     "Continuous assessment & progress tracking",
@@ -325,8 +325,8 @@ export default function AcademicsPage() {
           </div>
         </section>
 
-        {/* ========== CBC CORE COMPETENCIES ========== */}
-        {/* ========== CBC CORE COMPETENCIES ========== */}
+        {/* ========== CBE CORE COMPETENCIES ========== */}
+        {/* ========== CBE CORE COMPETENCIES ========== */}
         <section
           className="py-16 text-white md:py-24"
           style={{
@@ -348,7 +348,7 @@ export default function AcademicsPage() {
                 Skills every learner builds
               </h2>
               <p className="max-w-md border-l-2 border-white/50 pl-5 font-serif text-2xl italic leading-10 text-white">
-                Core competencies from the CBC, woven through every
+                Core competencies from the CBE, woven through every
                 subject from PP1 to Grade 8.
               </p>
             </div>

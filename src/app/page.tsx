@@ -12,7 +12,7 @@ export default function HomePage() {
 
   const whyChooseUs = [
     {
-      title: "CBC-Compliant Teaching",
+      title: "CBE-Compliant Teaching",
       desc: "Fully aligned with the Competency-Based Curriculum for PP1 to Grade 8.",
       image: "/images/hero/photo_9_cbc.jpg",
     },
@@ -90,7 +90,7 @@ export default function HomePage() {
                 </h1>
 
                 <p className="mt-6 max-w-xl text-lg text-white/90 md:text-xl">
-                  A nurturing, CBC-aligned learning environment where every learner
+                  A nurturing, CBE-aligned learning environment where every learner
                   is supported to excel.<br /> Strive To Excel, Sky is The Limit.
                 </p>
                 <div className="mt-8 flex flex-wrap gap-4 pt-2">

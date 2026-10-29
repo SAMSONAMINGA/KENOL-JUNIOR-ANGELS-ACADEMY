@@ -16,7 +16,7 @@ export default function Footer() {
               className="h-10 w-auto brightness-0 invert"
             />
             <p className="text-sm leading-relaxed">
-              A nurturing, CBC-aligned learning environment for PP1, PP2 & Grades 1–8.
+              A nurturing, CBE-aligned learning environment for PP1, PP2 & Grades 1–8.
               Strive To Excel, Sky is The Limit.
             </p>
           </div>
@@ -28,6 +28,7 @@ export default function Footer() {
               <li><Link href="/about" className="hover:text-white transition">About Us</Link></li>
               <li><Link href="/academics" className="hover:text-white transition">Academics</Link></li>
               <li><Link href="/admissions" className="hover:text-white transition">Admissions</Link></li>
+              <li><Link href="/admissions/status" className="hover:text-white transition">Check application status</Link></li>
               <li><Link href="/news-events" className="hover:text-white transition">News &amp; Events</Link></li>
               <li><Link href="/gallery" className="hover:text-white transition">Gallery</Link></li>
             </ul>

@@ -7,7 +7,7 @@ import ImageLightbox from "@/components/ui/ImageLightbox";
 
 const values = [
   {
-    title: "CBC-compliant teaching",
+    title: "CBE-compliant teaching",
     description:
       "Lessons are planned directly against the national Competency-Based Curriculum, so what happens in our classrooms lines up with what the Ministry of Education expects at every grade.",
     photo: "/images/hero/photo_1_main_group.png",
@@ -84,7 +84,7 @@ export default function AboutPage() {
             </h1>
 
             <p className="mt-8 max-w-4xl text-xl md:text-2xl text-[#f3e8db]/90 leading-relaxed">
-              Junior Angels Academy is a CBC-aligned school in Kenol, Murang&apos;a — a place
+              Junior Angels Academy is a CBE-aligned school in Kenol, Murang&apos;a — a place
               built on the belief that every child is a flower in the garden of life, each one
               special, each one to be loved.
             </p>
@@ -94,7 +94,7 @@ export default function AboutPage() {
                 PP1 – Grade 8
               </span>
               <span className="rounded-full border border-[#f7efe8]/30 bg-white/5 px-5 py-2.5 backdrop-blur-sm">
-                CBC-aligned curriculum
+                CBE-aligned curriculum
               </span>
               <span className="rounded-full border border-[#f7efe8]/30 bg-white/5 px-5 py-2.5 backdrop-blur-sm">
                 Off Catholic Road, Kenol
